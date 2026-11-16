@@ -61,7 +61,7 @@ func (r *subnetResource) Schema(_ context.Context, _ resource.SchemaRequest, res
 				Optional:    true,
 			},
 			"subnet": schema.StringAttribute{
-				Description: "Subnet in CIDR notation, e.g. 10.0.0.0/24.",
+				Description: "Subnet in CIDR notation, e.g. 192.0.2.0/24.",
 				Required:    true,
 			},
 			"subnet_id": schema.Int64Attribute{
@@ -69,7 +69,7 @@ func (r *subnetResource) Schema(_ context.Context, _ resource.SchemaRequest, res
 				Optional:    true,
 			},
 			"pools": schema.ListAttribute{
-				Description: "Address pools, e.g. [\"10.0.0.100-10.0.0.200\"].",
+				Description: "Address pools, e.g. [\"192.0.2.100-192.0.2.200\"].",
 				ElementType: types.StringType,
 				Optional:    true,
 			},

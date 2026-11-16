@@ -75,9 +75,9 @@ func TestSubnetWireRoundTrip(t *testing.T) {
 
 	in := subnetAPI{
 		Name:       "pxe",
-		Subnet:     "10.0.0.0/24",
-		Pools:      []string{"10.0.0.100-10.0.0.200"},
-		Routers:    []string{"10.0.0.1"},
+		Subnet:     "192.0.2.0/24",
+		Pools:      []string{"192.0.2.100-192.0.2.200"},
+		Routers:    []string{"192.0.2.1"},
 		OptionData: []optionDataAPI{{Code: 67, Space: "dhcp4", Data: "pxelinux.0"}},
 	}
 	var out subnetAPI

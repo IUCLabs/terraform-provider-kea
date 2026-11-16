@@ -36,10 +36,10 @@ func (p *keaProvider) Metadata(_ context.Context, _ provider.MetadataRequest, re
 
 func (p *keaProvider) Schema(_ context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Manage Kea DHCP configuration through the kea-operator KeaAPI: subnets and PXE client classes.",
+		Description: "Manage Kea DHCP subnets and PXE client classes through a KeaAPI HTTP service.",
 		Attributes: map[string]schema.Attribute{
 			"endpoint": schema.StringAttribute{
-				Description: "The KeaAPI server base URL (e.g. https://keaapi.k8s.syd1.au.unkin.net).",
+				Description: "The KeaAPI server base URL (e.g. https://keaapi.example.com).",
 				Required:    true,
 			},
 			"token": schema.StringAttribute{

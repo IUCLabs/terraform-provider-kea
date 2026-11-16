@@ -1,4 +1,4 @@
-module git.unkin.net/unkin/terraform-provider-kea
+module github.com/IUCLabs/terraform-provider-kea
 
 go 1.25.9
 
