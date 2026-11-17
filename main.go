@@ -1,5 +1,5 @@
 // Command terraform-provider-kea is the Terraform/OpenTofu provider for the
-// kea-operator KeaAPI: it manages Kea DHCP subnets and PXE client classes.
+// KeaAPI service: it manages Kea DHCP subnets and PXE client classes.
 package main
 
 import (
@@ -9,7 +9,7 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 
-	"git.unkin.net/unkin/terraform-provider-kea/internal/provider"
+	"github.com/IUCLabs/terraform-provider-kea/internal/provider"
 )
 
 var version = "0.0.1"
@@ -20,7 +20,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "git.unkin.net/unkin/kea",
+		Address: "registry.terraform.io/iuclabs/kea",
 		Debug:   debug,
 	}
 

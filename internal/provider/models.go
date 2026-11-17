@@ -1,6 +1,6 @@
 package provider
 
-// API wire types, mirroring git.unkin.net/unkin/kea-operator internal/keaapi.
+// API wire types, mirroring the KeaAPI JSON schema.
 // They are duplicated here to keep the provider's dependency surface small.
 
 type optionDataAPI struct {

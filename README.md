@@ -1,45 +1,50 @@
-# terraform-provider-kea
+# Terraform Provider Kea
 
-Terraform / OpenTofu provider for the [kea-operator](https://git.unkin.net/unkin/kea-operator)
-KeaAPI: it manages Kea DHCP subnets and PXE client classes as KeaSubnet /
-KeaClientClass custom resources over the KeaAPI HTTP service.
+This provider manages [ISC Kea](https://www.isc.org/kea/) DHCP configuration
+with Terraform or OpenTofu. It talks to a KeaAPI HTTP service and manages DHCP
+subnets and PXE client classes.
 
-## Provider configuration
+See the [provider documentation](docs/index.md) for all resources and arguments.
+
+## Quick Start
+
+Prebuilt provider archives are on the [releases page](https://github.com/IUCLabs/terraform-provider-kea/releases).
 
 ```hcl
 terraform {
   required_providers {
     kea = {
-      source  = "git.unkin.net/unkin/kea"
-      version = "0.0.1"
+      source = "IUCLabs/kea"
     }
   }
 }
 
 provider "kea" {
-  endpoint = "https://keaapi.k8s.syd1.au.unkin.net"
-  # token   = "..."   # defaults to $KEA_API_TOKEN
+  endpoint = "https://keaapi.example.com"
+  # token defaults to the KEA_API_TOKEN environment variable
+}
+
+resource "kea_subnet" "lab" {
+  name    = "lab"
+  subnet  = "192.0.2.0/24"
+  pools   = ["192.0.2.100-192.0.2.200"]
+  routers = ["192.0.2.1"]
 }
 ```
 
-Both reads and writes require the bearer token. Set it out-of-band via the
-`KEA_API_TOKEN` environment variable (managed in Vault) rather than in HCL.
+## Requirements
 
-## Resources
+- [Terraform](https://developer.hashicorp.com/terraform/install) 1.x or [OpenTofu](https://opentofu.org/)
+- [Go](https://go.dev/doc/install) 1.25+ (to build the provider)
 
-| Resource           | Purpose                                                        |
-|--------------------|----------------------------------------------------------------|
-| `kea_subnet`       | A DHCP subnet: pools, routers, DNS, PXE/boot options.          |
-| `kea_clientclass`  | A PXE client class matching by test expr or architecture.      |
+## Development
 
-The `name` attribute is the stable id (the CR name) and forces replacement when
-changed. `option_data` is a nested block of DHCP options (`name`, `code`,
-`space`, and required `data`).
+```sh
+make build   # build the provider binary
+make test    # run unit tests
+make docs    # regenerate docs/ from the schema and examples/
+```
 
-## Releases
+## License
 
-Tagging `vX.Y.Z` builds `terraform-provider-kea_X.Y.Z_linux_amd64.zip` and
-uploads it to the ArtifactAPI Terraform registry (`terraform-unkin` remote,
-namespace `unkin/kea`), which serves it as a GPG-signed provider registry.
-
-See `examples/` for full usage.
+[MIT](LICENSE)

@@ -11,13 +11,13 @@ func TestClientSendsBearerToken(t *testing.T) {
 	var gotAuth string
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		gotAuth = r.Header.Get("Authorization")
-		_, _ = w.Write([]byte(`{"name":"pxe","subnet":"10.0.0.0/24"}`))
+		_, _ = w.Write([]byte(`{"name":"pxe","subnet":"192.0.2.0/24"}`))
 	}))
 	defer srv.Close()
 
 	c := newAPIClient(srv.URL, "tok")
 	var out subnetAPI
-	if err := c.put(context.Background(), "/api/v1/subnets/pxe", subnetAPI{Name: "pxe", Subnet: "10.0.0.0/24"}, &out); err != nil {
+	if err := c.put(context.Background(), "/api/v1/subnets/pxe", subnetAPI{Name: "pxe", Subnet: "192.0.2.0/24"}, &out); err != nil {
 		t.Fatal(err)
 	}
 	if gotAuth != "Bearer tok" {

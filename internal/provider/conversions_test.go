@@ -50,7 +50,7 @@ func TestStringsListRoundTrip(t *testing.T) {
 
 func TestOptionDataRoundTrip(t *testing.T) {
 	in := []optionDataAPI{
-		{Name: "tftp-server-name", Code: 66, Space: "dhcp4", Data: "10.0.0.1"},
+		{Name: "tftp-server-name", Code: 66, Space: "dhcp4", Data: "192.0.2.1"},
 		{Data: "just-data"},
 	}
 	list := optionDataToList(in)
@@ -77,16 +77,16 @@ func TestOptionDataRoundTrip(t *testing.T) {
 func TestSubnetAPIToModel(t *testing.T) {
 	api := subnetAPI{
 		Name:          "pxe",
-		Subnet:        "10.0.0.0/24",
+		Subnet:        "192.0.2.0/24",
 		ID:            0, // omitted -> null
-		Pools:         []string{"10.0.0.100-10.0.0.200"},
-		Routers:       []string{"10.0.0.1"},
+		Pools:         []string{"192.0.2.100-192.0.2.200"},
+		Routers:       []string{"192.0.2.1"},
 		ClientClasses: []string{"pxeclients"},
 		ValidLifetime: 3600,
 		OptionData:    []optionDataAPI{{Code: 67, Data: "pxelinux.0"}},
 	}
 	m := subnetAPIToModel(api)
-	if m.Name.ValueString() != "pxe" || m.Subnet.ValueString() != "10.0.0.0/24" {
+	if m.Name.ValueString() != "pxe" || m.Subnet.ValueString() != "192.0.2.0/24" {
 		t.Errorf("identity fields wrong: %+v", m)
 	}
 	if !m.SubnetID.IsNull() {

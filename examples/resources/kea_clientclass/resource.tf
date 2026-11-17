@@ -4,7 +4,7 @@ resource "kea_clientclass" "pxeclients" {
   # Match legacy BIOS PXE clients by vendor-class-identifier.
   test = "substring(option[60].hex,0,9) == 'PXEClient'"
 
-  next_server    = "10.0.0.1"
+  next_server    = "192.0.2.1"
   boot_file_name = "ipxe.efi"
 }
 
